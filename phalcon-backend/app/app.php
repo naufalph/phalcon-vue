@@ -12,6 +12,31 @@ $app->get('/', function () {
     echo $this['view']->render('index');
 });
 
+$app->get(
+    '/patients/{id:[0-9]+}',
+    function ($id) {
+    }
+);
+
+$app->post(
+    '/patients',
+    function () {
+    }
+);
+
+$app->put(
+    '/patients/{id:[0-9]+}',
+    function ($id) {
+    }
+);
+
+$app->delete(
+    '/patients/{id:[0-9]+}',
+    function ($id) {
+    }
+);
+
+
 /**
  * Not found handler
  */

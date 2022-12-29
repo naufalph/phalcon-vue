@@ -12,18 +12,15 @@ services:
     expose:
       - '8080'
     depends_on:
-      - phpmyadmin
+      - db
     links:
-      - phpmyadmin
+      - db
 
-  phpmyadmin:
-    container_name: mariadb
+  db:
     image: mariadb
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: example
-      MARIADB_DATABASE: phalcon_app
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mariadb
     ports:
-      - '3307:3306'
+      - '3306:3306'
+    container_name: mariadb-new

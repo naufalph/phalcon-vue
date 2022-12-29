@@ -24,4 +24,4 @@ RUN set -xe && \
     && \
     php -m
 
-ENV WEB_DOCUMENT_ROOT=./phalcon-backend/public
+ENV WEB_DOCUMENT_ROOT=/var/www/html/phalcon-backend/public
