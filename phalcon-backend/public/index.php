@@ -10,43 +10,21 @@ define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 
 try {
-    /**
-     * The FactoryDefault Dependency Injector automatically registers the services that
-     * provide a full stack framework. These default services can be overidden with custom ones.
-     */
-    $di = new FactoryDefault();
 
-    /**
-     * Include Services
-     */
-    include APP_PATH . '/config/services.php';
+  $di = new FactoryDefault();
 
-    /**
-     * Get config service for use in inline setup below
-     */
-    $config = $di->getConfig();
+  include APP_PATH . '/config/services.php';  
 
-    /**
-     * Include Autoloader
-     */
-    include APP_PATH . '/config/loader.php';
+  $config = $di->getConfig();
 
-    /**
-     * Starting the application
-     * Assign service locator to the application
-     */
-    $app = new Micro($di);
+  include APP_PATH . '/config/loader.php';
 
-    /**
-     * Include Application
-     */
-    include APP_PATH . '/app.php';
+  $app = new Micro($di); 
 
-    /**
-     * Handle the request
-     */
-    $app->handle($_SERVER['REQUEST_URI']);
+  include APP_PATH . '/app.php'; //bener
+
+  $app->handle($_SERVER['REQUEST_URI']);
 } catch (\Exception $e) {
-      echo $e->getMessage() . '<br>';
-      echo '<pre>' . $e->getTraceAsString() . '</pre>';
+  echo $e->getMessage() . '<br>';
+  echo '<pre>' . $e->getTraceAsString() . '</pre>';
 }
