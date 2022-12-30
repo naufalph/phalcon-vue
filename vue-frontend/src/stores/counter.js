@@ -46,17 +46,61 @@ export const usePatientStore = defineStore("patient", {
     },
     async delPatient(id) {
       try {
-        await axios({
-          method: "delete",
-          url: server + `patients/${id}`,
-        });
-        this.fetchPatient()
+        // await axios({
+        //   method: "delete",
+        //   url: server + `patients/${id}`,
+        // });
+        await axios.delete(server + `patients/${id}`);
+        this.fetchPatient();
         Swal.fire({
-          title:'Delete success',
-          timer: 1000
-        })
+          title: "Delete success",
+          timer: 1000,
+        });
       } catch (error) {
-        console.log(error.response.data)
+        this.fetchPatient();
+        console.log(error);
+      }
+    },
+    async postPatient(newPatient) {
+      try {
+        await axios({
+          method: "POST",
+          url: server + `patients`,
+          data: newPatient,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        Swal.fire({
+          icon: "success",
+          text: "Post new patient successful",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        this.$route.push("/");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async putPatient(newPatient, id) {
+      try {
+        await axios({
+          method: "PUT",
+          url: server + `patients/${id}`,
+          data: newPatient,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        Swal.fire({
+          icon: "success",
+          text: `Edit patient ${id} successful`,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        this.$route.push(`/${id}`);
+      } catch (error) {
+        console.log(error);
       }
     },
   },
