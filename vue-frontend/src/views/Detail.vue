@@ -1,5 +1,16 @@
 <template>
-  <div class="d-flex mx-4 my-6">
+  <div class="d-flex flex-column mx-4 my-6 justify-content-center">
+    <div class="d-flex justify-content-between">
+      <h1>Patient Detail</h1>
+      <div>
+        <router-link to="/add"
+          ><button class="btn btn-primary m-6">Edit Patient Data</button></router-link
+        >
+        <router-link to="/"
+          ><button class="btn btn-white m-6">Home</button></router-link
+        >
+      </div>
+    </div>
     <table class="table">
       <thead>
         <tr>
@@ -15,6 +26,10 @@
         <tr>
           <td>NIK</td>
           <td>{{ singlePatient.nik }}</td>
+        </tr>
+        <tr>
+          <td>Gender</td>
+          <td>{{ singlePatient.sex }}</td>
         </tr>
         <tr>
           <td>Religion</td>

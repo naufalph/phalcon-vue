@@ -1,7 +1,10 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import Swal from "sweetalert2";
+import router from "../router";
+
 const server = "http://localhost:8080/";
+
 
 export const usePatientStore = defineStore("patient", {
   state: () => {
@@ -77,7 +80,7 @@ export const usePatientStore = defineStore("patient", {
           showConfirmButton: false,
           timer: 1000,
         });
-        this.$route.push("/");
+        router.push("/");
       } catch (error) {
         console.log(error);
       }
@@ -98,10 +101,20 @@ export const usePatientStore = defineStore("patient", {
           showConfirmButton: false,
           timer: 1000,
         });
-        this.$route.push(`/${id}`);
+        router.push(`/${id}`);
       } catch (error) {
         console.log(error);
       }
     },
+    resetPatientData(){
+      this.singlePatient = {
+        name: "",
+        sex: "",
+        religion: "",
+        phone: "",
+        address: "",
+        nik: "",
+      }
+    }
   },
 });
