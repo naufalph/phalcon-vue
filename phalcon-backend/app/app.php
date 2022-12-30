@@ -5,11 +5,28 @@
  * @var \Phalcon\Mvc\Micro $app
  */
 
+
+
+header('Access-Control-Allow-Origin: *');
 /**
  * Add your routes here
  */
 
 use Phalcon\Http\Response;
+
+
+$app->before(function () use ($app) {
+  $origin = $app->request->getHeader("ORIGIN") ? $app->request->getHeader("ORIGIN") : '*';
+
+  $app->response->setHeader("Access-Control-Allow-Origin", $origin)
+    ->setHeader("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE,OPTIONS')
+    ->setHeader("Access-Control-Allow-Headers", 'Origin, X-Requested-With, Content-Range, Content-Disposition, Content-Type, Authorization')
+    ->setHeader("Access-Control-Allow-Credentials", true);
+});
+
+$app->options('/{catch:(.*)}', function () use ($app) {
+  $app->response->setStatusCode(200, "OK")->send();
+});
 
 $app->get('/', function () use ($app) {
   $response = new Response();
@@ -95,9 +112,6 @@ $app->get(
       );
       return $response;
     }
-    // $payload = array("code" => 200, "message" => "Patients fetched");
-    // $response->setStatusCode(200, "OK");
-    // $response->setJsonContent(array("status" => $payload, "result" => $patient));
   }
 );
 
@@ -189,6 +203,7 @@ $app->put(
     $response = new Response();
 
     if ($status->success() === true) {
+      $response->setHeader('Access-Control-Allow-Origin', '*');
       $response->setStatusCode(200, 'Patient Updated');
 
       $newpatient->id = $status->getModel()->id;
@@ -196,7 +211,7 @@ $app->put(
       $response->setJsonContent(
         [
           'status' => 'OK',
-          "message"=> "Patient Updated"
+          "message" => "Patient Updated"
         ]
       );
     } else {
