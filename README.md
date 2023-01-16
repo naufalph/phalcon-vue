@@ -4,6 +4,7 @@ How to Start this App in your computer:
 ```md
 docker
 docker-compose
+test
 ```
 1. INITIATE BACKEND
 ```powershell
@@ -36,3 +37,4 @@ cd vue-frontend
 npm install
 npm run dev
 ```
+
